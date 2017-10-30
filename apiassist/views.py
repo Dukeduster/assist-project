@@ -1,18 +1,19 @@
 from django.shortcuts import render, get_object_or_404
 from rest_framework.views import APIView
-from rest_framework import status
+from rest_framework import status, generics
 from rest_framework.response import Response
 from .models import UsuarioApp, Curso, SesionCurso, Asistencia
 from .serializers import UsuarioAppSerializer, CursoSerializer, SessionCursoSerializer, AsistenciaSerializer
 
 # Create your views here.
-class UsuarioAppView(APIView):
-    
-def get(self,request):
-		usuario=UsuarioApp.objects.filter(username=self.request.user)
-        return Response(usuario)
+class UsuarioAppView(generics.ListAPIView):
+    serializer_class = UsuarioAppSerializer
 
-def post(self, request):
+    def get_queryset(self):
+        user = self.kwargs['user']
+        return UsuarioApp.objects.filter(username=user)
+
+    def post(self, request):
 		serializer=UsuarioAppSerializer(data=request.data)
 		if serializer.is_valid():
 			serializer.save()
