@@ -20,7 +20,7 @@ from apiassist import views
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^users/', views.UsuarioAppView.as_view),
-    url(r'^cursos/', admin.CursoView.urls),
-    url(r'^sesiones/', admin.SesionCursoView.urls),
-    url(r'^asistencia/', admin.AsistenciaView.urls),
+    url(r'^cursos/', views.CursoView.as_view),
+    url(r'^sesiones/', views.SesionCursoView.as_view),
+    url(r'^asistencia/', views.AsistenciaView.as_view),
 ]
