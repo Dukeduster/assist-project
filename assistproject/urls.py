@@ -15,7 +15,12 @@ Including another URLconf
 """
 from django.conf.urls import url
 from django.contrib import admin
+from apiassist import views
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
+    url(r'^users/', views.UsuarioAppView.as_view),
+    url(r'^cursos/', admin.CursoView.urls),
+    url(r'^sesiones/', admin.SesionCursoView.urls),
+    url(r'^asistencia/', admin.AsistenciaView.urls),
 ]
