@@ -9,8 +9,13 @@ from .serializers import UsuarioAppSerializer, CursoSerializer, SessionCursoSeri
 class UsuarioAppView(generics.ListAPIView):
     serializer_class = UsuarioAppSerializer
     def get_queryset(self):
-        user = self.kwargs['user']
-        return UsuarioApp.objects.filter(username=user)
+        queryset = UsuarioApp.objects.all()
+        user = self.request.query_params.get('user', None)
+        passw=self.request.query_params.get('passw', None)
+        if user is not None:
+            queryset = queryset.filter(username=user)
+            queryset = queryset.filter(password=passw)
+        return queryset
 
     def post(self, request):
         serializer = UsuarioAppSerializer(data=request.data)
