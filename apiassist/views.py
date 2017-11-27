@@ -26,7 +26,16 @@ class UsuarioAppView(generics.ListAPIView):
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUESTS)
 
 
-class CursoView(APIView):
+class CursoView(generics.ListAPIView):
+    serializer_class = CursoSerializer
+    def get_queryset(self):
+            queryset = Curso.objects.all()
+            owner = self.request.query_params.get('ownr', None)
+            if owner is not None:
+                queryset = queryset.filter(owner=ownr)
+            return queryset
+
+
     def post(self, request):
         serializer=CursoSerializer(data=request.data)
         if serializer.is_valid():
@@ -52,3 +61,30 @@ class AsistenciaView(APIView):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUESTS)
+
+class AsistenciaViewByUser(generics.ListAPIView):
+    serializer_class = AsistenciaSerializer
+    def get_queryset(self):
+            queryset = Asistencia.objects.all()
+            user = self.request.query_params.get('usr', None)
+            if user is not None:
+                queryset = queryset.filter(estudiante=user)
+            return queryset
+
+class AsistenciaViewByCourse(generics.ListAPIView):
+    serializer_class = AsistenciaSerializer
+    def get_queryset(self):
+            queryset = Asistencia.objects.all()
+            curso = self.request.query_params.get('curso', None)
+            if curso is not None:
+                queryset = queryset.filter(curso=curso)
+            return queryset
+
+class AsistenciaViewBySession(generics.ListAPIView):
+    serializer_class = AsistenciaSerializer
+    def get_queryset(self):
+            queryset = Asistencia.objects.all()
+            session = self.request.query_params.get('session', None)
+            if session is not None:
+                queryset = queryset.filter(session=session)
+            return queryset

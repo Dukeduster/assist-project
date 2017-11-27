@@ -8,12 +8,12 @@ from .models import Asistencia
 class UsuarioAppSerializer(serializers.ModelSerializer):
     class Meta:
         model=UsuarioApp
-        fields=('id','username','password','rol')
+        fields=('id','username','password','name', 'lastname', 'cedula','rol')
 
 class CursoSerializer(serializers.ModelSerializer):
     class Meta:
         model=Curso
-        fields=('id','name','owner','fechaCreacion', 'habilitado')
+        fields=('id','name','owner','fechaCreacion', 'habilitado', 'descripcion', 'fechaExpiracion')
 
 class SessionCursoSerializer(serializers.ModelSerializer):
     class Meta:
@@ -23,4 +23,4 @@ class SessionCursoSerializer(serializers.ModelSerializer):
 class AsistenciaSerializer(serializers.ModelSerializer):
     class Meta:
         model=Asistencia
-        fields=('id','fechaAsistencia','curso','asistencia', 'estudiante')
+        fields=('id','fechaAsistencia','fechaReporte','curso','asistencia', 'estudiante', 'latitude', 'longitud')

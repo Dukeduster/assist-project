@@ -19,9 +19,12 @@ from apiassist import views
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^cursos/', views.CursoView.as_view()),
+    url(r'^cursos/$', views.CursoView.as_view()),
     url(r'^sesiones/', views.SesionCursoView.as_view()),
     url(r'^asistencia/', views.AsistenciaView.as_view()),
-    url(r'^users/$', views.UsuarioAppView.as_view()),
+    url(r'^users$', views.UsuarioAppView.as_view()),
+    url(r'^getAsistenciaByUser$', views.AsistenciaViewByUser.as_view()),
+    url(r'^getAsistenciaByCourse$', views.AsistenciaViewByCourse.as_view()),
+    url(r'^getAsistenciaBySession$', views.AsistenciaViewBySession.as_view())
 
 ]
