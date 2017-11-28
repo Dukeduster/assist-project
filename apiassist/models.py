@@ -19,17 +19,17 @@ class Curso(models.Model):
 	owner=models.ForeignKey('UsuarioApp', on_delete=models.CASCADE)
 	fechaCreacion=models.DateTimeField(auto_now_add=True)
 	habilitado=models.BooleanField(default=True)
-	descripcion=models.CharField(max_length=100, blank=True)
-	fechaExpiracion=models.DateTimeField(blank=True)
+	descripcion=models.CharField(max_length=100, blank=True, null=True)
+	fechaExpiracion=models.DateTimeField(blank=True,null=True)
 	def __str__(self):
 		return str(self.name)
 
 class SesionCurso(models.Model):
-	id=models.AutoField(primary_key=True)
+	id=models.CharField(max_length=50, primary_key=True)
 	fechaSesion=models.DateTimeField(null=False)
 	name=models.CharField(max_length=50)
-	qrCode=models.CharField(max_length=100)
 	curso=models.ForeignKey('Curso', on_delete=models.CASCADE)
+	descripcion=models.CharField(max_length=50, blank=True, null=True)
 	def __str__(self):
 		return str(self.name)
 
@@ -37,7 +37,6 @@ class Asistencia(models.Model):
 	id=models.AutoField(primary_key=True)
 	fechaAsistencia=models.DateTimeField(null=False)
 	fechaReporte=models.DateTimeField(auto_now_add=True)
-	curso=models.ForeignKey('Curso', on_delete=models.CASCADE)
 	sesion=models.ForeignKey('SesionCurso', on_delete=models.CASCADE)
 	estudiante=models.ForeignKey('UsuarioApp', on_delete=models.CASCADE)
 	latitud=models.DecimalField(max_digits=9, decimal_places=6)
