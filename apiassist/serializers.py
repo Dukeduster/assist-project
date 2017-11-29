@@ -24,14 +24,3 @@ class AsistenciaSerializer(serializers.ModelSerializer):
     class Meta:
         model=Asistencia
         fields=('id','fechaAsistencia','fechaReporte','sesion', 'estudiante', 'latitud', 'longitud')
-
-class SesionAllSerializer(serializers.ModelSerializer):
-    curso=CursoSerializer(many=False, read_only=True)
-    class Meta:
-        model=SesionCurso
-        fields=('id','fechaSesion','name','descripcion', 'curso')
-
-class AsistenciaAllSerializer(serializers.ModelSerializer):
-    sesion=SesionAllSerializer(many=False, read_only=True)
-    class Meta:
-        fields=('id','fechaAsistencia','fechaReporte','sesion', 'estudiante', 'latitud', 'longitud')
